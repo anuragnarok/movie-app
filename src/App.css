@@ -1,6 +1,33 @@
-.movie-app{
+.image-container {
     display: flex;
-    flex-direction: row;
-    overflow-x: auto;
-    flex-wrap: nowrap;
+    justify-content: start ;
+    margin: 3;
+    position: relative;
+    transition: transform 0.2s;
+}
+.image-container:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+}
+.image-container:hover .overlay {
+    opacity: 1;
+}
+
+.overlay{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    background: rgba(0, 0, 0, 0.8);
+    width: 100%;
+    transition: 0.5s ease ;
+    opacity: 0;
+    bottom: 0;
+    font-size: 20px;
+    padding: 20px;
+    text-align: center;
+}
+.fav{
+    color:white;
+    margin: 2;
 }

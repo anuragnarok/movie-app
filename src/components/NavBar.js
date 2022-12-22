@@ -38,11 +38,11 @@ const UserBox = styled(Box)(({ theme }) => ({
   },
 }));
 
-const NavBar = () => {
+const NavBar = (props) => {
   const [open, setOpen] = useState(false);
   return (
     <AppBar position="sticky">
-      <StyledToolbar >
+      <StyledToolbar>
         <Typography variant="h6" sx={{ display: { xs: "none", sm: "block" } }}>
           Movies
         </Typography>
@@ -50,7 +50,11 @@ const NavBar = () => {
           sx={{ display: { xs: "block", sm: "none" } }}
         />
         <Search>
-          <InputBase placeholder="Search..." />
+          <InputBase
+            placeholder="Search..."
+            value={props.value}
+            onChange={(event) => props.setSearch(event.target.value)}
+          />
         </Search>
         <Icon>
           <Avatar

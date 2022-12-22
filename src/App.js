@@ -5,105 +5,78 @@ import NavBar from "./components/NavBar";
 import axios from "axios";
 import "./App.css";
 import { Stack } from "@mui/system";
+import AddFav from "./components/AddFav";
+
 function App() {
   const [movie, setMovie] = useState([
     {
-      Title: "Captain Marvel",
-      Year: "2019",
-      imdbID: "tt4154664",
-      Type: "movie",
-      Poster:
-        "https://m.media-amazon.com/images/M/MV5BMTE0YWFmOTMtYTU2ZS00ZTIxLWE3OTEtYTNiYzBkZjViZThiXkEyXkFqcGdeQXVyODMzMzQ4OTI@._V1_SX300.jpg",
-    },
-    {
-      Title: "Ms. Marvel",
-      Year: "2022",
-      imdbID: "tt10857164",
+      Title: "Disney Gallery: The Mandalorian",
+      Year: "2020–",
+      imdbID: "tt12162902",
       Type: "series",
       Poster:
-        "https://m.media-amazon.com/images/M/MV5BZmQ3OTZkNDUtNTU0Mi00ZjE4LTgyNTUtY2E4NWRmNDUxMzkyXkEyXkFqcGdeQXVyMDM2NDM2MQ@@._V1_SX300.jpg",
+        "https://m.media-amazon.com/images/M/MV5BYjY0YWEzNTMtZjRlZi00MzQ1LThkMTAtMTk4OTE5MWVkYzFkXkEyXkFqcGdeQXVyODk4OTc3MTY@._V1_SX300.jpg",
     },
     {
-      Title: "Marvel One-Shot: Agent Carter",
-      Year: "2013",
-      imdbID: "tt3067038",
-      Type: "movie",
+      Title: "The Magical World of Disney",
+      Year: "1954–1997",
+      imdbID: "tt0046593",
+      Type: "series",
       Poster:
-        "https://m.media-amazon.com/images/M/MV5BZDIwZTM4M2QtMWFhYy00N2VmLWFlMjItMzI3NjBjYTc0OTMxXkEyXkFqcGdeQXVyNTE1NjY5Mg@@._V1_SX300.jpg",
+        "https://m.media-amazon.com/images/M/MV5BNzEzMzQzMDc0Nl5BMl5BanBnXkFtZTcwMTk5ODczMQ@@._V1_SX300.jpg",
     },
     {
-      Title: "Marvel One-Shot: All Hail the King",
-      Year: "2014",
-      imdbID: "tt3438640",
-      Type: "movie",
+      Title: "The Wonderful World of Disney",
+      Year: "1997–2005",
+      imdbID: "tt0132666",
+      Type: "series",
       Poster:
-        "https://m.media-amazon.com/images/M/MV5BZGFkMTZkMDQtNzM4Yy00YWEwLTkzOWEtZTMyNDRlNmJhYWJhXkEyXkFqcGdeQXVyNTE1NjY5Mg@@._V1_SX300.jpg",
-    },
-    {
-      Title: "Marvel One-Shot: Item 47",
-      Year: "2012",
-      imdbID: "tt2247732",
-      Type: "movie",
-      Poster:
-        "https://m.media-amazon.com/images/M/MV5BMjNlMzAxNmQtOGEwZi00NTEyLWI0NWYtMTlhNmE2YTA3ZDVhXkEyXkFqcGdeQXVyNTE1NjY5Mg@@._V1_SX300.jpg",
+        "https://m.media-amazon.com/images/M/MV5BNmJjYzNkNjgtZDZiNS00YjdmLTk4MDEtMzJkYWFkZmQ3ZWFiXkEyXkFqcGdeQXVyMjIzMTQ5NjE@._V1_SX300.jpg",
     },
     {
       Title:
-        "Marvel One-Shot: A Funny Thing Happened on the Way to Thor's Hammer",
-      Year: "2011",
-      imdbID: "tt2011109",
+        "I Killed My Lesbian Wife, Hung Her on a Meathook, and Now I Have a Three Picture Deal at Disney",
+      Year: "1993",
+      imdbID: "tt0166222",
       Type: "movie",
       Poster:
-        "https://m.media-amazon.com/images/M/MV5BYmVlYTg3N2QtMWM2OS00YWQyLWI2M2MtMDc0ZjBkZjk1MTY3XkEyXkFqcGdeQXVyNTE1NjY5Mg@@._V1_SX300.jpg",
+        "https://m.media-amazon.com/images/M/MV5BOTNlZDMxMDItM2M4Yy00NDNkLWJkOTMtMTJkMTRlYTNiZjNkXkEyXkFqcGdeQXVyNjMxODMyODU@._V1_SX300.jpg",
     },
     {
-      Title: "Marvel One-Shot: The Consultant",
-      Year: "2011",
-      imdbID: "tt2011118",
+      Title: "Walt Disney Animation Studios Short Films Collection",
+      Year: "2015",
+      imdbID: "tt6181728",
       Type: "movie",
       Poster:
-        "https://m.media-amazon.com/images/M/MV5BNGE4YjU5MDAtYzYzMC00M2RlLTk0NDgtNDU1MjgyMGI0MjI3XkEyXkFqcGdeQXVyNTE1NjY5Mg@@._V1_SX300.jpg",
+        "https://m.media-amazon.com/images/M/MV5BYTdkYjkyMzgtMjQyOC00ZmNiLTg1OTAtNzJhY2MyNjlmM2M5XkEyXkFqcGdeQXVyNDgyODgxNjE@._V1_SX300.jpg",
     },
     {
-      Title: "Marvel Studios: Legends",
-      Year: "2021–",
-      imdbID: "tt13650480",
-      Type: "series",
+      Title: "The Story of Frozen: Making a Disney Animated Classic",
+      Year: "2014",
+      imdbID: "tt4007494",
+      Type: "movie",
       Poster:
-        "https://m.media-amazon.com/images/M/MV5BMzdiNGVlZGYtMGY1Ni00OGU1LTlmYzEtZDBjYjk3OGM3YTNkXkEyXkFqcGdeQXVyNzk3NDUzNTc@._V1_SX300.jpg",
-    },
-    {
-      Title: "Lego Marvel Super Heroes",
-      Year: "2013",
-      imdbID: "tt2620204",
-      Type: "game",
-      Poster:
-        "https://m.media-amazon.com/images/M/MV5BOTA5ODA2NTI2M15BMl5BanBnXkFtZTgwNTcxMzU1MDE@._V1_SX300.jpg",
-    },
-    {
-      Title: "Marvel Studios: Assembled",
-      Year: "2021–",
-      imdbID: "tt14094206",
-      Type: "series",
-      Poster:
-        "https://m.media-amazon.com/images/M/MV5BNWMyNWYyMmYtZjNiZi00MzFmLTg2MjYtYWEzZWY1MzBhY2I2XkEyXkFqcGdeQXVyNTE1NjY5Mg@@._V1_SX300.jpg",
+        "https://m.media-amazon.com/images/M/MV5BMTk0NjAzNjg4NF5BMl5BanBnXkFtZTgwNDQ3NjIwMzE@._V1_SX300.jpg",
     },
   ]);
+  const [search, setSearch] = useState("");
   const client = axios.create({
-    baseURL: 'http://www.omdbapi.com/?s=batman&apikey=8ba2c07d'
-  })
-  useEffect(()=>{
-    async function getPost() {
-      const response = await client.get()
-      console.log(response.data.Search)
-      setMovie(response.data.Search)
+    baseURL: `http://www.omdbapi.com/?s=${search}&apikey=8ba2c07d`,
+  });
+  useEffect(() => {
+    async function getMovies() {
+      const response = await client.get();
+      console.log(response.data.Search);
+      if (response.data.Search) {
+        setMovie(response.data.Search);
+      }
     }
-    getPost()
-  } ,[])
-  
+    getMovies(search);
+  }, [search]);
+
   const darkTheme = createTheme({
     palette: {
-      mode: "dark",
+      mode: "light",
     },
   });
   return (
@@ -113,9 +86,9 @@ function App() {
         color={"text.primary"}
         className="App"
       >
-        <NavBar />
+        <NavBar search={search} setSearch={setSearch} />
         <Stack>
-        <MovieList movie={movie} />
+          <MovieList movie={movie} favouriteComponent={AddFav} />
         </Stack>
       </Box>
     </ThemeProvider>

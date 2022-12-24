@@ -1,4 +1,4 @@
-import { Box, createTheme, ThemeProvider } from "@mui/material";
+import { Box, createTheme, ThemeProvider, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import MovieList from "./components/MovieList";
 import NavBar from "./components/NavBar";
@@ -6,7 +6,8 @@ import axios from "axios";
 import "./App.css";
 import { Stack } from "@mui/system";
 import AddFav from "./components/AddFav";
-
+import "bootstrap/dist/css/bootstrap.min.css";
+import RemoveFav from "./components/RemoveFav";
 function App() {
   const [movie, setMovie] = useState([
     {
@@ -59,6 +60,7 @@ function App() {
         "https://m.media-amazon.com/images/M/MV5BMTk0NjAzNjg4NF5BMl5BanBnXkFtZTgwNDQ3NjIwMzE@._V1_SX300.jpg",
     },
   ]);
+  const [favourites, setFavourites] = useState([]);
   const [search, setSearch] = useState("");
   const client = axios.create({
     baseURL: `http://www.omdbapi.com/?s=${search}&apikey=8ba2c07d`,
@@ -74,11 +76,35 @@ function App() {
     getMovies(search);
   }, [search]);
 
+  useEffect(() => {
+    const movieFavs = JSON.parse(
+      localStorage.getItem("react-movie-app-favourites")
+    );
+
+    setFavourites(movieFavs);
+  }, []);
+  const saveToLocalStorage = (items) => {
+    localStorage.setItem("react-movie-app-favourites", JSON.stringify(items));
+  };
+
   const darkTheme = createTheme({
     palette: {
       mode: "light",
     },
   });
+
+  const addFavouriteMovie = (movie) => {
+    const newFavouriteList = [...favourites, movie];
+    setFavourites(newFavouriteList);
+    saveToLocalStorage(newFavouriteList);
+  };
+  const removeFavMovie = (movie) => {
+    const newFavouriteList = favourites.filter(
+      (favourite) => favourite.imdbID !== movie.imdbID
+    );
+    setFavourites(newFavouriteList);
+    saveToLocalStorage(newFavouriteList)
+  };
   return (
     <ThemeProvider theme={darkTheme}>
       <Box
@@ -87,8 +113,25 @@ function App() {
         className="App"
       >
         <NavBar search={search} setSearch={setSearch} />
+        <div>
+          <MovieList
+            movie={movie}
+            handleFavouritesClick={addFavouriteMovie}
+            favouriteComponent={AddFav}
+          />
+        </div>
         <Stack>
-          <MovieList movie={movie} favouriteComponent={AddFav} />
+          <Typography
+            variant="h5"
+            sx={{ display: { xs: "none", sm: "block" } }}
+          >
+            Favourites
+          </Typography>
+          <MovieList
+            movie={favourites}
+            handleFavouritesClick={removeFavMovie}
+            favouriteComponent={RemoveFav}
+          />
         </Stack>
       </Box>
     </ThemeProvider>

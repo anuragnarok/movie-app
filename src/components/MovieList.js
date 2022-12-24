@@ -6,10 +6,11 @@ const MovieList = (props) => {
   const FavouriteComponent = props.favouriteComponent;
   return (
     <Stack direction="row" overflow={"auto"} ref={scrollref}>
+  
       {props.movie.map((movie, index) => (
         <div className="image-container">
           <img src={movie.Poster} alt="movie" />
-          <div className="overlay">
+          <div onClick={()=> props.handleFavouritesClick(movie)} className="overlay">
             <FavouriteComponent/>
           </div>
         </div>
